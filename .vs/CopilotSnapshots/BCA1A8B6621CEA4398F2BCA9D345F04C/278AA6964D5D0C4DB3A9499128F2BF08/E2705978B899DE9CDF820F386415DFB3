@@ -25,7 +25,7 @@ public class CheckOut
         Console.WriteLine($"Dödsår: {deathYear}");
 
         Console.WriteLine();
-        Console.WriteLine("Tack för din vistelse på hotell Hjortonet. Din vistelse är nu avslutad och det är dags att checka ut och checka in på ditt nästa liv. Lycka till med din reinkarnation!");
+        Console.WriteLine("Tack för din vistelse på hotell Hjortonet.Din vistelse är nu avslutad och det är dags att checka ut och checka in på ditt nästa liv. Lycka till med din reinkarnation!
 
         Console.WriteLine();
         Console.WriteLine("Tryck på valfri tangent för att fortsätta...");

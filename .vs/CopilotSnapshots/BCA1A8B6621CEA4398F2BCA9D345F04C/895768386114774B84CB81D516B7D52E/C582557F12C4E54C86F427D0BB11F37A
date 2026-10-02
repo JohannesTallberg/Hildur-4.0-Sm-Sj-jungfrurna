@@ -104,8 +104,6 @@ namespace Hildur4._0
             // Center the panel using Align with HorizontalAlignment
             AnsiConsole.Write(new Align(panel, HorizontalAlignment.Center));
 
-            // Internal keys (always English) and translated labels shown to the user
-            var keys = new[] { "Booking", "Check-in", "Checkout" };
             var choices = translatedChoices;
 
             int selected = 0;
@@ -155,8 +153,7 @@ namespace Hildur4._0
                 }
             } while (key != ConsoleKey.Enter);
 
-            // Return the internal English key corresponding to the selected translated label
-            var choice = keys[selected];
+            var choice = choices[selected];
 
             // Print selected centered under the panel
             try
