@@ -1,0 +1,32 @@
+﻿using Spectre.Console;
+using System;
+
+namespace Hildur4._0
+{
+    public class WelcomeUI
+    {
+        /// <summary>
+        /// Show a simple welcome UI with three choices using Spectre.Console.
+        /// Returns the selected option as a string.
+        /// </summary>
+        public string Show()
+        {
+            AnsiConsole.Clear();
+
+
+            AnsiConsole.WriteLine("Hildur 4.0");
+            AnsiConsole.WriteLine("          #******#          \r\n      ****************      \r\n    +*******************    \r\n  ************************  \r\n  ************************  \r\n  ******    +***    ******  \r\n#*******    +**+    *******#\r\n#*******----****----*******#\r\n#**************************#\r\n#***++++****++++****++++***#\r\n#***.   #***    ****    ***#\r\n#*. +***    +**+    ***+ .*#\r\n#**************************#\r\n#***  ******    ******  ***#\r\n#*      ****    ****      *#");
+            AnsiConsole.WriteLine("----------------");
+            AnsiConsole.WriteLine("Choose an option:\n");
+
+            var prompt = new SelectionPrompt<string>()
+                .Title("What would you like to do?")
+                .AddChoices(new[] { "Bokning", "Incheck", "Outcheck" });
+
+            var choice = AnsiConsole.Prompt(prompt);
+            AnsiConsole.WriteLine($"\nSelected: {choice}\n");
+
+            return choice;
+        }
+    }
+}

@@ -1,0 +1,74 @@
+﻿using Spectre.Console;
+using System;
+using System.Linq;
+
+namespace Hildur4._0
+{
+    public class WelcomeUI
+    {
+        /// <summary>
+        /// Show a simple welcome UI with three choices using Spectre.Console.
+        /// Returns the selected option as a string.
+        /// </summary>
+        public string Show()
+        {
+            AnsiConsole.Clear();
+
+            var title = "Hildur 4.0";
+            var art = "          #******#          \n      ****************      \n    +*******************    \n  ************************  \n  ************************  \n  ******    +***    ******  \n#*******    +**+    *******#\n#*******----****----*******#\n#**************************#\n#***++++****++++****++++***#\n#***.   #***    ****    ***#\n#*. +***    +**+    ***+ .*#\n#**************************#\n#***  ******    ******  ***#\n#*      ****    ****      *#";
+
+            var welcomeMessages = new[]
+            {
+                "Welcome, dear guest — check your baggage of memories at the door.",
+                "The Afterlife Hotel awaits. Reservations are eternal.",
+                "Rest, roam, or repeat: choose your stay among the stars.",
+                "Rooms with a view of forever. We hope you enjoy the silence.",
+                "Welcome to the grand lobby between heartbeats. Make yourself at home."
+            };
+
+            var rnd = new Random();
+            var message = welcomeMessages[rnd.Next(welcomeMessages.Length)];
+
+            var choices = new[] { "Bokning", "Incheck", "Outcheck" };
+
+            int winW = 80; int winH = 25;
+            try { winW = Console.WindowWidth; winH = Console.WindowHeight; } catch { }
+
+            var artLines = art.Split('\n').ToList();
+            var blockLines = artLines.ToList();
+
+            // Insert title and welcome message above the art
+            blockLines.Insert(0, "");
+            blockLines.Insert(0, message);
+            blockLines.Insert(0, title);
+            blockLines.Add("----------------");
+            blockLines.Add("Choose an option:");
+
+            int contentWidth = Math.Max(blockLines.Max(l => l.Length), Math.Max(choices.Max(c => c.Length), message.Length));
+            int totalHeight = blockLines.Count + choices.Length + 4;
+
+            int leftPad = Math.Max(0, (winW - contentWidth) / 2);
+            int topPad = Math.Max(0, (winH - totalHeight) / 2);
+
+            for (int i = 0; i < topPad; i++) Console.WriteLine();
+
+            foreach (var line in blockLines)
+            {
+                Console.WriteLine(new string(' ', leftPad) + line);
+            }
+
+            try { Console.SetCursorPosition(leftPad, Console.CursorTop); } catch { }
+
+            var prompt = new SelectionPrompt<string>()
+                .Title("What would you like to do?")
+                .AddChoices(choices);
+
+            var choice = AnsiConsole.Prompt(prompt);
+
+            Console.WriteLine();
+            Console.WriteLine(new string(' ', leftPad) + $"Selected: {choice}\n");
+
+            return choice;
+        }
+    }
+}

@@ -1,0 +1,51 @@
+﻿using Spectre.Console;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Hildur4._0
+{
+    public class WelcomeUI
+    {
+        public enum WelcomeChoice
+        {
+            StartNew,
+            LoadSaved,
+            Exit
+        }
+
+        /// <summary>
+        /// Show a simple welcome UI with three choices using Spectre.Console.
+        /// Returns the selected choice.
+        /// </summary>
+        public WelcomeChoice Show()
+        {
+            // Clear previous console contents
+            AnsiConsole.Clear();
+
+            // Header
+            var header = new FigletText("Hildur 4.0").Centered().Color(Color.Cyan1);
+            AnsiConsole.Write(header);
+
+            AnsiConsole.MarkupLine("\n[grey]Welcome — choose one of the options below:[/]\n");
+
+            // Prompt with three choices
+            var prompt = new SelectionPrompt<WelcomeChoice>()
+                .Title("[yellow]What would you like to do?[/]")
+                .PageSize(10)
+                .AddChoices(WelcomeChoice.StartNew, WelcomeChoice.LoadSaved, WelcomeChoice.Exit)
+                .UseConverter(choice => choice switch
+                {
+                    WelcomeChoice.StartNew => "Start New Game",
+                    WelcomeChoice.LoadSaved => "Load Saved Game",
+                    WelcomeChoice.Exit => "Exit",
+                    _ => choice.ToString()
+                });
+
+            var result = AnsiConsole.Prompt(prompt);
+            AnsiConsole.MarkupLine($"\n[green]You selected:[/] {result}\n");
+
+            return result;
+        }
+    }
+}

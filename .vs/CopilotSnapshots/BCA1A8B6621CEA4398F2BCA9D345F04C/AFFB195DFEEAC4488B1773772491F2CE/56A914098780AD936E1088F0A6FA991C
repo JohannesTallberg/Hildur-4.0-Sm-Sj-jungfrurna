@@ -1,0 +1,59 @@
+﻿using Spectre.Console;
+using System;
+using System.Linq;
+
+namespace Hildur4._0
+{
+    public class WelcomeUI
+    {
+        /// <summary>
+        /// Show a simple welcome UI with three choices using Spectre.Console.
+        /// Returns the selected option as a string.
+        /// </summary>
+        public string Show()
+        {
+            AnsiConsole.Clear();
+
+            var title = "Hildur 4.0";
+            var art = "          #******#          \n      ****************      \n    +*******************    \n  ************************  \n  ************************  \n  ******    +***    ******  \n#*******    +**+    *******#\n#*******----****----*******#\n#**************************#\n#***++++****++++****++++***#\n#***.   #***    ****    ***#\n#*. +***    +**+    ***+ .*#\n#**************************#\n#***  ******    ******  ***#\n#*      ****    ****      *#";
+
+            var messages = new[]
+            {
+                "Welcome, guest — please leave your past at the door.",
+                "Afterlife Hotel: reservations are forever.",
+                "Rooms with a view of eternity. Relax and roam.",
+                "The lobby between heartbeats welcomes you.",
+                "Make yourself at home among the stars."
+            };
+
+            var random = new Random();
+            var message = messages[random.Next(messages.Length)];
+
+            var content = string.Join('\n', new[] { title, "", message, "", art });
+
+            // Show centered panel with title, message and art
+            AnsiConsole.Write(new Panel(content).Padding(1, 1).Rounded().Centered());
+
+            var choices = new[] { "Bokning", "Incheck", "Outcheck" };
+
+            // Try to center the prompt by moving the cursor to the panel's left edge
+            try
+            {
+                int width = Console.WindowWidth;
+                int contentWidth = content.Split('\n').Max(l => l.Length);
+                int leftPad = Math.Max(0, (width - contentWidth) / 2);
+                Console.SetCursorPosition(leftPad, Console.CursorTop);
+            }
+            catch { }
+
+            var prompt = new SelectionPrompt<string>()
+                .Title("What would you like to do?")
+                .AddChoices(choices);
+
+            var choice = AnsiConsole.Prompt(prompt);
+
+            AnsiConsole.WriteLine($"\nSelected: {choice}\n");
+            return choice;
+        }
+    }
+}
