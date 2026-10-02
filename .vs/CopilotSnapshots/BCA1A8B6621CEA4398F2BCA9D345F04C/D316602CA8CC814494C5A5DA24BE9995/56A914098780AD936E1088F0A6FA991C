@@ -1,0 +1,80 @@
+﻿using Spectre.Console;
+using System;
+using System.Linq;
+
+namespace Hildur4._0
+{
+    public class WelcomeUI
+    {
+        /// <summary>
+        /// Show a simple welcome UI with three choices using Spectre.Console.
+        /// Returns the selected option as a string.
+        /// </summary>
+        public string UserInterface()
+        {
+            AnsiConsole.Clear();
+
+            var art = "          #******#          \n      ****************      \n    +*******************    \n  ************************  \n  ************************  \n  ******    +***    ******  \n#*******    +**+    *******#\n#*******----****----*******#\n#**************************#\n#***++++****++++****++++***#\n#***.   #***    ****    ***#\n#*. +***    +**+    ***+ .*#\n#**************************#\n#***  ******    ******  ***#\n#*      ****    ****      *#";
+
+            var messages = new[]
+            {
+                "Welcome, guest — please leave your past at the door.",
+                "Afterlife Hotel: reservations are forever.",
+                "Rooms with a view of eternity. Relax and roam.",
+                "The lobby between heartbeats welcomes you.",
+                "Make yourself at home among the stars."
+            };
+
+            var random = new Random();
+            var message = messages[random.Next(messages.Length)];
+
+            // Escape message and art, then wrap entire art in blue markup
+            var escapedMessage = Markup.Escape(message);
+            var escapedArt = Markup.Escape(art);
+
+            var markupContent = $"{escapedMessage}\n\n[blue]{escapedArt}[/]";
+
+            // Render a larger title using FigletText, then show panel with message and blue art
+            var figlet = new FigletText("Welcome To The Afterlife Hotel").Color(Color.Cyan).Centered();
+            AnsiConsole.Write(figlet);
+
+            var panel = new Panel(new Markup(markupContent))
+                .Padding(1, 1)
+                .Border(BoxBorder.Rounded);
+
+            // Center the panel using Align
+            AnsiConsole.Write(new Align(panel, Alignment.Center));
+
+            var artLines = art.Split('\n');
+            var contentWidth = Math.Max(Markup.Escape(message).Length, artLines.Max(l => l.Length));
+            // panel adds padding (2) and borders (2)
+            int panelWidth = contentWidth + 4;
+
+            var choices = new[] { "Booking", "Check-in", "Checkout" };
+
+            // Try to position prompt centered under the panel
+            try
+            {
+                int leftPad = Math.Max(0, (Console.WindowWidth - panelWidth) / 2);
+                Console.SetCursorPosition(leftPad, Console.CursorTop);
+            }
+            catch { }
+
+            var prompt = new SelectionPrompt<string>()
+                .Title("What would you like to do?")
+                .AddChoices(choices);
+
+            var choice = AnsiConsole.Prompt(prompt);
+
+            try
+            {
+                int leftPad = Math.Max(0, (Console.WindowWidth - panelWidth) / 2);
+                Console.SetCursorPosition(leftPad, Console.CursorTop);
+            }
+            catch { }
+
+            AnsiConsole.MarkupLine($"\n[green]Selected:[/] {choice}\n");
+            return choice;
+        }
+    }
+}
