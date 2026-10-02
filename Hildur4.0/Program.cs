@@ -105,6 +105,6 @@ class Program
             }
         }
 
-        Console.WriteLine("\nThank you for visiting Hotel Cloudberry for Compliance!");
+        Console.WriteLine("\nThank you for visiting Hotel Hjortronet for Compliance!");
     }
 }
