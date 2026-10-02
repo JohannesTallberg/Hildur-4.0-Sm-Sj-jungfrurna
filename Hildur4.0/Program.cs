@@ -1,9 +1,25 @@
 ﻿namespace Hildur4._0;
 
+using System;
+
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
-        Console.WriteLine("Hello, World!");
+        Kjell kjell = new Kjell();
+
+        kjell.MenuChoice();
+        kjell.MenuChoice();
+        kjell.MenuChoice();
+
+        Console.ReadKey();
+    }
+
+    static void Main()
+    {
+        CheckOut checkOut = new CheckOut();
+
+        checkOut.Start();
     }
 }
+
