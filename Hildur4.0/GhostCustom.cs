@@ -36,19 +36,24 @@ namespace Hildur4._0
                     return (false, "Denied check-in: Ancient ghosts over 300 years old must wear approved rattling chains.");
                 }
 
-                return (true, "Compliance approved: Warmly welcome to Hotel Hjortronet./n " +
-                    "Your check-in is now complete, and we want you to feel entirely safe during your stay with us./n" +
-                    "Our safety pledge means that all your earthly memories, secrets, and personal data are handled " +
-                    "with the utmost security in our cryptographic ether archive. /n" +
-                    "Our AI assistant HILDUR is used in a completely responsible manner, " +
-                    "and she personally guarantees that the Devil will under no circumstances " +
-                    "gain access to your soul as long as you are checked in here. /n" +
-                    "However, we urge you to be extra attentive and watch out for Kjell the hotel cat – he is a mischievous " +
-                    "saboteur who loves hiding keys, causing disruptions, and playing pranks on our guests. " +
-                    "/n Your time here is your own, where you can book various activities. " +
-                    "Your check-out occurs only once you have resolved your unfinished business and found your peace. " +
-                    "/n We wish you a successful and peaceful stay." +
-                    "/n Kind regards from all of us at Hotel Hjortronet!");
+                return (true, "Compliance approved: Warmly welcome to Hotel Hjortronet. \n " +
+                    "Your check-in is now complete, and we want you to feel entirely\n " +
+                    "safe during your stay with us.\n" +
+                    "Our safety pledge means that all your earthly memories, \n " +
+                    "secrets, and personal data are handled with the utmost \n" +
+                    "security in our cryptographic ether archive. \n" +
+                    "Our AI assistant HILDUR is used in a completely responsible manner, \n" +
+                    "and she personally guarantees that the Devil will under no circumstances\n " +
+                    "gain access to your soul as long as you are checked in here. \n" +
+                    "However, we urge you to be extra attentive and watch \n" +
+                    "out for Kjell the hotel cat – he is a mischievoussaboteur who \n" +
+                    " loves hiding keys, causing disruptions, \n" +
+                    "and playing pranks on our guests.\n " +
+                    "Your time here is your own, where you can book various activities.\n " +
+                    "Your check-out occurs only once you have resolved \n" +
+                    "your unfinished business and found your peace. \n" +
+                    " We wish you a successful and peaceful stay.\n " +
+                    "Kind regards from all of us at Hotel Hjortronet!\n");
                 
             }
         }
