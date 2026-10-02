@@ -89,4 +89,68 @@ public class BookingService
     {
         return _bookings;
     }
+
+    // ... existing code, fields, and constructors ...
+
+    #region Debug Helpers
+
+    /// <summary>
+    /// Prints all internal room data and settings to the console.
+    /// </summary>
+    public void DebugDumpRooms()
+    {
+        Console.WriteLine("\n=================== [DEBUG: ROOMS DUMP] ===================");
+        Console.WriteLine($"Total Rooms Loaded: {_rooms.Count}");
+        Console.WriteLine("-----------------------------------------------------------");
+
+        if (_rooms.Count == 0)
+        {
+            Console.WriteLine(" No rooms found in memory.");
+        }
+        else
+        {
+            foreach (var room in _rooms)
+            {
+                Console.WriteLine($"[Room {room.RoomNumber}]");
+                Console.WriteLine($"  ├── Theme:            {room.Type}");
+                Console.WriteLine($"  ├── Base Price:       {room.BasePricePerNight} SEK");
+                Console.WriteLine($"  ├── Max Capacity:     {room.MaxCapacity} Ghosts");
+                Console.WriteLine($"  └── Ectoplasm Proof:  {room.IsEctoplasmProof}");
+            }
+        }
+
+        Console.WriteLine("===========================================================\n");
+    }
+
+    /// <summary>
+    /// Prints all stored booking records and date ranges to the console.
+    /// </summary>
+    public void DebugDumpBookings()
+    {
+        Console.WriteLine("\n================== [DEBUG: BOOKINGS DUMP] ==================");
+        Console.WriteLine($"Total Active Bookings: {_bookings.Count}");
+        Console.WriteLine("-----------------------------------------------------------");
+
+        if (_bookings.Count == 0)
+        {
+            Console.WriteLine(" No bookings currently stored in memory.");
+        }
+        else
+        {
+            foreach (var b in _bookings)
+            {
+                Console.WriteLine($"[Booking #{b.BookingId}]");
+                Console.WriteLine($"  ├── Guest:       {b.GuestName}");
+                Console.WriteLine($"  ├── Room Number: {b.RoomNumber}");
+                Console.WriteLine($"  ├── Check-In:    {b.CheckInDate:yyyy-MM-dd}");
+                Console.WriteLine($"  ├── Check-Out:   {b.CheckOutDate:yyyy-MM-dd} ({b.Nights} nights)");
+                Console.WriteLine($"  ├── Total Cost:  {b.TotalPrice} SEK");
+                Console.WriteLine($"  └── Created At:  {b.CreatedAt:yyyy-MM-dd HH:mm:ss}");
+            }
+        }
+
+        Console.WriteLine("===========================================================\n");
+    }
+
+    #endregion
 }
