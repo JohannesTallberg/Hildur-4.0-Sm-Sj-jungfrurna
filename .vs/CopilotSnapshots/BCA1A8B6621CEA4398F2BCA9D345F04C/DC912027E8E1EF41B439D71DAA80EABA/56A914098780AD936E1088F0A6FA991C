@@ -1,9 +1,8 @@
 ﻿using Spectre.Console;
 using System;
 using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using GTranslate.Translators;
 
 namespace Hildur4._0
 {
@@ -32,59 +31,8 @@ namespace Hildur4._0
             var random = new Random();
             var message = messages[random.Next(messages.Length)];
 
-            // Let the user choose language first (uses Google translate endpoint if available)
-            var languages = new[] { "English", "Svenska", "Español", "Français" };
-            var langMap = new System.Collections.Generic.Dictionary<string, string>
-            {
-                ["English"] = "en",
-                ["Svenska"] = "sv",
-                ["Español"] = "es",
-                ["Français"] = "fr"
-            };
-
-            var langPrompt = new SelectionPrompt<string>()
-                .Title("Choose language / Välj språk / Elija idioma / Choisir la langue")
-                .AddChoices(languages);
-
-            var selectedLang = AnsiConsole.Prompt(langPrompt);
-            var langCode = langMap.ContainsKey(selectedLang) ? langMap[selectedLang] : "en";
-
-            // Translate message and choices if possible
-            string Translate(string text, string to)
-            {
-                try
-                {
-                    using var http = new HttpClient();
-                    var url = $"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl={to}&dt=t&q={Uri.EscapeDataString(text)}";
-                    var resp = http.GetStringAsync(url).GetAwaiter().GetResult();
-                    var doc = JsonDocument.Parse(resp);
-                    var root = doc.RootElement;
-                    if (root.ValueKind == JsonValueKind.Array && root.GetArrayLength() > 0)
-                    {
-                        var first = root[0];
-                        if (first.ValueKind == JsonValueKind.Array && first.GetArrayLength() > 0)
-                        {
-                            var seg = first[0];
-                            if (seg.ValueKind == JsonValueKind.Array && seg.GetArrayLength() > 0)
-                            {
-                                var translated = seg[0].GetString();
-                                if (!string.IsNullOrEmpty(translated)) return translated;
-                            }
-                        }
-                    }
-                }
-                catch
-                {
-                    // ignore and return original
-                }
-                return text;
-            }
-
-            var translatedMessage = Translate(message, langCode);
-            var translatedChoices = new[] { Translate("Booking", langCode), Translate("Check-in", langCode), Translate("Checkout", langCode) };
-
             // Escape message and art, then wrap entire art in blue markup
-            var escapedMessage = Markup.Escape(translatedMessage);
+            var escapedMessage = Markup.Escape(message);
             var escapedArt = Markup.Escape(art);
 
             var markupContent = $"{escapedMessage}\n\n[blue]{escapedArt}[/]";
@@ -100,7 +48,7 @@ namespace Hildur4._0
             // Center the panel using Align with HorizontalAlignment
             AnsiConsole.Write(new Align(panel, HorizontalAlignment.Center));
 
-            var choices = translatedChoices;
+            var choices = new[] { "Booking", "Check-in", "Checkout" };
 
             int selected = 0;
 
@@ -114,7 +62,7 @@ namespace Hildur4._0
                 try { winW = Console.WindowWidth; } catch { }
 
                 var artLines = art.Split('\n');
-                int contentWidth = Math.Max(translatedMessage.Length, artLines.Max(l => l.Length));
+                int contentWidth = Math.Max(message.Length, artLines.Max(l => l.Length));
                 int panelWidth = contentWidth + 4; // padding + borders
 
                 int leftPad = Math.Max(0, (winW - panelWidth) / 2);
