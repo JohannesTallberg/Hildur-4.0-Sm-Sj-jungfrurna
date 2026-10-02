@@ -3,6 +3,8 @@ using GTranslate.Translators;
 
 namespace Hildur4._0;
 
+using System;
+
 class Program
 {
         static void Main(string[] args)
@@ -10,7 +12,6 @@ class Program
             WelcomeUI welcomeUI = new WelcomeUI();
             var LangCode = welcomeUI.ChooseLanguage();
 
-            // Run the UI once and use the returned choice
             var choice = welcomeUI.UserInterface(LangCode);
 
             switch (choice)
@@ -26,6 +27,9 @@ class Program
                 case "Checkout":
                     var tran3 = Translator.Translate("User selected Checkout", LangCode);
                     Console.WriteLine(tran3);
+
+                    CheckOut checkOut = new CheckOut();
+                    checkOut.Start();
                     break;
                 default:
                     var tran4 = Translator.Translate("User selected an unknown option", LangCode);
@@ -34,3 +38,4 @@ class Program
             }
         }
 }
+
