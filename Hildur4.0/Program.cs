@@ -12,43 +12,43 @@ class Program
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(@"
 ======================================================
-         *** REGISTRERA NYTT SPÖKE ***             
+         *** REGISTER NEW GHOST ***             
 ======================================================");
             Console.ResetColor();
 
-            // 1. Skapa ett nytt spökobjekt
+            // 1. Create a new ghost object
             var ghost = new GhostCustom.Ghost();
 
-            // 2. Mata in Namn
-            Console.Write("\n[1] Ange spökets namn: ");
-            ghost.Name = Console.ReadLine() ?? "Okänt spöke";
+            // 2. Input Name
+            Console.Write("\n[1] Enter ghost name: ");
+            ghost.Name = Console.ReadLine() ?? "Unknown Ghost";
 
-            // 3. Mata in Dödsår (med validering så det blir ett nummer)
+            // 3. Input Year of Passing (with validation to ensure it's a number)
             int year;
             while (true)
             {
-                Console.Write("[2] Ange bortgångsår (t.ex. 1650): ");
+                Console.Write("[2] Enter year of passing (e.g., 1650): ");
                 if (int.TryParse(Console.ReadLine(), out year) && year <= DateTime.Now.Year)
                 {
                     ghost.YearOfPassing = year;
                     break;
                 }
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("    Ange ett giltigt år!");
+                Console.WriteLine("    Please enter a valid year!");
                 Console.ResetColor();
             }
 
-            // 4. Bär spöket kedjor?
-            Console.Write("[3] Bär spöket skrammelkedjor? (j\n): ");
+            // 4. Does the ghost wear chains?
+            Console.Write("[3] Does the ghost wear rattling chains? (y/n): ");
             string chainInput = Console.ReadLine()?.ToLower() ?? "";
-            ghost.HasChains = chainInput == "j" || chainInput == "ja";
+            ghost.HasChains = chainInput == "y" || chainInput == "yes";
 
-            // 5. Mata in Ouppklarade ärenden (Unfinished Business)
-            Console.WriteLine("\n[4] Ouppklarade ärenden:");
+            // 5. Input Unfinished Business
+            Console.WriteLine("\n[4] Unfinished business:");
             bool addingBusiness = true;
             while (addingBusiness)
             {
-                Console.Write("    -> Beskriv ärendet (lämna tomt och tryck Enter för att avsluta): ");
+                Console.Write("    -> Describe business item (leave blank and press Enter to finish): ");
                 string businessDesc = Console.ReadLine() ?? "";
 
                 if (string.IsNullOrWhiteSpace(businessDesc))
@@ -63,21 +63,21 @@ class Program
                         IsResolved = false
                     });
                     Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.WriteLine("       (Ärende tillagt!)");
+                    Console.WriteLine("       (Item added!)");
                     Console.ResetColor();
                 }
             }
 
-            // 6. Kör Compliance-kontroll på det inmatade spöket
+            // 6. Run Compliance Check on the registered ghost
             Console.Clear();
             Console.WriteLine("==================================================");
-            Console.WriteLine($"      EFTERLEVNADSKONTROLL FÖR: {ghost.Name.ToUpper()}");
+            Console.WriteLine($"      COMPLIANCE CHECK FOR: {ghost.Name.ToUpper()}");
             Console.WriteLine("==================================================\n");
 
-            Console.WriteLine($"Namn:          {ghost.Name}");
-            Console.WriteLine($"Bortgångsår:   {ghost.YearOfPassing} (Död för {DateTime.Now.Year - ghost.YearOfPassing} år sedan)");
-            Console.WriteLine($"Skrammelkedjor: {(ghost.HasChains ? "Ja" : "Nej")}");
-            Console.WriteLine($"Antal ärenden: {ghost.BusinessList.Count}");
+            Console.WriteLine($"Name:            {ghost.Name}");
+            Console.WriteLine($"Year of Passing: {ghost.YearOfPassing} ({DateTime.Now.Year - ghost.YearOfPassing} years ago)");
+            Console.WriteLine($"Rattling Chains: {(ghost.HasChains ? "Yes" : "No")}");
+            Console.WriteLine($"Business Count:  {ghost.BusinessList.Count}");
             Console.WriteLine(new string('-', 50));
 
             var checker = new GhostCustom.ComplianceChecker();
@@ -86,25 +86,25 @@ class Program
             if (isCompliant)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"\n[GODKÄND] {reason}");
+                Console.WriteLine($"\n[APPROVED] {reason}");
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\n[NEKAD] {reason}");
+                Console.WriteLine($"\n[DENIED] {reason}");
             }
             Console.ResetColor();
 
-            // 7. Fråga om användaren vill mata in ett till spöke
+            // 7. Ask if the user wants to register another ghost
             Console.WriteLine("\n==================================================");
-            Console.Write("Vill du mata in ett till spöke? (j/n): ");
+            Console.Write("Would you like to register another ghost? (y/n): ");
             string continueInput = Console.ReadLine()?.ToLower() ?? "";
-            if (continueInput != "j" && continueInput != "ja")
+            if (continueInput != "y" && continueInput != "yes")
             {
                 keepRunning = false;
             }
         }
 
-        Console.WriteLine("\nTack för besöket på Hotellet Hjortron för Efterlevnad!");
+        Console.WriteLine("\nThank you for visiting Hotel Cloudberry for Compliance!");
     }
 }
