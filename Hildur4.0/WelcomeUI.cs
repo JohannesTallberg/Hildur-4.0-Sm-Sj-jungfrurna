@@ -52,7 +52,7 @@ namespace Hildur4._0
 
             // Translate message and choices using shared Translator class
             var translatedMessage = Translator.Translate(message, langCode);
-            var translatedChoices = new[] { Translator.Translate("Booking", langCode), Translator.Translate("Check-in", langCode), Translator.Translate("Checkout", langCode), Translator.Translate("Exit", langCode) };
+            var translatedChoices = new[] { Translator.Translate("Booking", langCode), Translator.Translate("Check-in", langCode), Translator.Translate("Haunt the living", langCode), Translator.Translate("Checkout", langCode), Translator.Translate("Exit", langCode) };
 
             // Escape message and art, then wrap entire art in blue markup
             var escapedMessage = Markup.Escape(translatedMessage);
@@ -72,7 +72,7 @@ namespace Hildur4._0
             AnsiConsole.Write(new Align(panel, HorizontalAlignment.Center));
 
             // Internal keys (always English) and translated labels shown to the user
-            var keys = new[] { "Booking", "Check-in", "Checkout", "Exit" };
+            var keys = new[] { "Booking", "Check-in", "Haunt the living", "Checkout", "Exit" };
             var choices = translatedChoices;
 
             int selected = 0;

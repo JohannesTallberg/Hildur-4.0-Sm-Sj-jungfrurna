@@ -120,6 +120,10 @@ class Program
                         keepRunning = false;
                     }
                     break;
+                case "Haunt the living":
+                    Console.OutputEncoding = System.Text.Encoding.UTF8;
+                    new Haunter().Run();
+                    break;
                 case "Checkout":
                     Console.WriteLine(Translator.Translate("User selected Checkout", langCode));
                     kjell.MenuChoice();
