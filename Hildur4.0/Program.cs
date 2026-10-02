@@ -7,7 +7,6 @@ class Program
 {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
             WelcomeUI welcomeUI = new WelcomeUI();
             var LangCode = welcomeUI.ChooseLanguage();
 
