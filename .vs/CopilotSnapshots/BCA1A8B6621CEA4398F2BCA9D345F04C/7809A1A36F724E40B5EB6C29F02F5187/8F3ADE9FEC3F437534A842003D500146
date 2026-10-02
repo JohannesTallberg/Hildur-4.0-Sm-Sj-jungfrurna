@@ -9,32 +9,11 @@ namespace Hildur4._0
 {
     public class WelcomeUI
     {
-
-        // Show a language selection prompt and return the language code (e.g., "en", "sv").
-        public string ChooseLanguage() // made public so Program.Main can call it
-        {
-            var languages = new[] { "English", "Svenska", "Español", "Français" };
-            var langMap = new System.Collections.Generic.Dictionary<string, string>
-            {
-                ["English"] = "en",
-                ["Svenska"] = "sv",
-                ["Español"] = "es",
-                ["Français"] = "fr"
-            };
-
-            var langPrompt = new SelectionPrompt<string>()
-                .Title("Choose language / Välj språk / Elija idioma / Choisir la langue")
-                .AddChoices(languages);
-
-            var selectedLang = AnsiConsole.Prompt(langPrompt);
-            return langMap.ContainsKey(selectedLang) ? langMap[selectedLang] : "en";
-        }
-
         /// <summary>
         /// Show a simple welcome UI with three choices using Spectre.Console.
         /// Returns the selected option as a string.
         /// </summary>
-        public string UserInterface(string langCode)
+        public string UserInterface()
         {
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             AnsiConsole.Clear();
@@ -52,6 +31,9 @@ namespace Hildur4._0
 
             var random = new Random();
             var message = messages[random.Next(messages.Length)];
+
+            // Ask the user to choose a language and get its code
+            var langCode = ChooseLanguage();
 
             // Translate message and choices if possible
             string Translate(string text, string to)

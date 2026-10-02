@@ -34,7 +34,7 @@ namespace Hildur4._0
         /// Show a simple welcome UI with three choices using Spectre.Console.
         /// Returns the selected option as a string.
         /// </summary>
-        public string UserInterface(string langCode)
+        public string UserInterface()
         {
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             AnsiConsole.Clear();
@@ -52,6 +52,9 @@ namespace Hildur4._0
 
             var random = new Random();
             var message = messages[random.Next(messages.Length)];
+
+            // Ask the user to choose a language and get its code
+            var langCode = ChooseLanguage();
 
             // Translate message and choices if possible
             string Translate(string text, string to)

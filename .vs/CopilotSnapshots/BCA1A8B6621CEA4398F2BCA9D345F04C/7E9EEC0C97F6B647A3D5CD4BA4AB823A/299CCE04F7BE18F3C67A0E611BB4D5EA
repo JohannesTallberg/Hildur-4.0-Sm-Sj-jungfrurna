@@ -12,7 +12,7 @@ class Program
             var LangCode = welcomeUI.ChooseLanguage();
 
             // Run the UI once and use the returned choice
-            var choice = welcomeUI.UserInterface(LangCode);
+            var choice = welcomeUI.UserInterface();
 
             switch (choice)
             {
