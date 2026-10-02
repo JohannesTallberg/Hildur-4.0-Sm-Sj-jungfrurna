@@ -87,6 +87,8 @@ public class Haunter
             if (haunting < 0) continue;
 
             Console.WriteLine("\n" + Haunt(people[person], haunting));
+            Console.WriteLine("\nPress any key to continue...");
+            Console.ReadKey(intercept: true);
         }
     }
 
